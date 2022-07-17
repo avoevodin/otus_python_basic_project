@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Client {{ client.last_name }}
+{% endblock %}
+
+{% block body %}
+  <h1>Client {{ client }}</h1>
+  <div>
+    <ul>
+      <li>Birthday: {{ client.birthday }}</li>
+      <li>Job: {{ client.job }}</li>
+      <li>Income: ₽{{ client.details.income }}</li>
+    </ul>
+    <div>
+      <strong>Biography:</strong>
+      <p>{{ client.details.bio }}</p>
+    </div>
+    <div>
+      <strong>Services:</strong>
+      <ul>
+        {% for service in client.services.all %}
+          <li>{{ service.name }}: ₽{{ service.price }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <a href="{% url 'clients:list' %}">Back to clients</a>
+  </div>
+{% endblock %}
