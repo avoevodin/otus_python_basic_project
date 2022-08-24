@@ -2,6 +2,10 @@ from django.db import models
 
 
 class Category(models.Model):
+    """
+    TODO
+    """
+
     name = models.CharField(max_length=128, db_index=True)
     slug = models.SlugField(max_length=128, db_index=True, unique=True)
     description = models.CharField(max_length=512, blank=True)
@@ -16,6 +20,10 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """
+    TODO
+    """
+
     name = models.CharField(max_length=128, db_index=True)
     slug = models.SlugField(max_length=128, db_index=True)
     category = models.ForeignKey(
