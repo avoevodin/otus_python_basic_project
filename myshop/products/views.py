@@ -12,18 +12,28 @@ class ProductListView(generic.ListView):
     model = Product
     template_name = "product_list.html"
     ordering = "name"
+    context_object_name = "product_list"
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        category_slug = self.kwargs["category_slug"]
+    def get_context_data(self, *, product_list=None, **kwargs):
+        category_slug = self.kwargs.get("category_slug")
         category = None
+        context = super(ProductListView, self).get_context_data(**kwargs)
+
         if category_slug:
             category = get_object_or_404(Category, slug=category_slug)
             if category:
-                object_list = Product.objects.filter(available=True, category=category)
+                product_list = Product.objects.filter(available=True, category=category)
 
-        context = super(ProductListView, self).get_context_data(
-            object_list=object_list, **kwargs
-        )
         context["category"] = category
         context["categories"] = Category.objects.all()
+
+        if product_list:
+            context["product_list"] = product_list
+
         return context
+
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+    template_name = "product_detail.html"
+    context_object_name = "product"
