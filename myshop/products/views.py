@@ -36,5 +36,5 @@ class ProductListView(generic.ListView):
 
 class ProductDetailView(generic.DetailView):
     model = Product
-    template_name = "product_detail.html"
+    template_name = "products/product_detail.html"
     context_object_name = "product"

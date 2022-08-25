@@ -9,6 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
     """
 
     list_display = ["id", "name", "slug"]
+    list_display_links = ["id", "name"]
     prepopulated_fields = {"slug": ("name",)}
 
 
@@ -27,6 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
         "created",
         "updated",
     ]
+    list_display_links = ["id", "name"]
     list_filter = ["available", "created", "updated"]
     list_editable = ["price", "stock", "available"]
     prepopulated_fields = {"slug": ("name",)}

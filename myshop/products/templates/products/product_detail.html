@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "products/css/index.css" %}">
+{% endblock %}
+
+{% block title %}
+  Product detail
+{% endblock %}
+
+{% block container %}
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{% if product.image %}
+                  {{ product.image.url }}
+                  {% else %}
+                    {% static "img/no-image.png" %}
+                  {% endif %}"
+             class="img-fluid rounded-start product-image-lg"
+             alt="no image">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">{{ product.name }}</h5>
+            {% if product.stock < 3 %}
+              <p class="card-text">
+                <span class="badge text-bg-danger ms-5">Only {{ product.stock }} in stock!</span>
+              </p>
+            {% endif %}
+          </div>
+          <h4 class="card-title my-2">${{ product.price }}</h4>
+          <hr>
+          <p class="card-text">{{ product.description }}</p>
+        </div>
+        <div class="d-flex justify-content-end mb-3 me-2">
+          <a class="btn btn-primary" href="{% url "products:products_list" %}" role="button">Back</a>
+          <a class="btn btn-success ms-2">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

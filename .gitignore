@@ -142,3 +142,4 @@ cython_debug/
 static/
 
 .DS_Store
+media/
