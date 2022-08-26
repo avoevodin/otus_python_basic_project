@@ -1,10 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "products/css/index.css" %}">
+{% endblock %}
+
+{% block title %}
+  Cart
+{% endblock %}
+
+{% block container %}
+  {% if cart %}
+    <h3 class="my-3">Your shopping cart</h3>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Image</th>
+          <th scope="col">Product</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Remove</th>
+          <th scope="col">Unit price</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart %}
+          {% with item.product as product %}
+            <tr>
+              <td>
+                <a href="{% url 'products:product_detail' product.id product.slug %}">
+                    <img
+                      src="{% if product.image %}
+                            {{ product.image.url }}
+                            {% else %}
+                              {% static 'img/no-image.png' %}
+                            {% endif %}"
+                      class='card-img-top product-image'
+                      alt='no image'
+                    >
+                  </a>
+              </td>
+              <td>
+                {{ product.name }}
+              </td>
+              <td>
+                {{ item.quantity }}
+              </td>
+              <td>
+                <a href="{% url 'cart:remove' product.pk %}">Remove</a>
+              </td>
+              <td>
+                ${{ item.price }}
+              </td>
+              <td>
+                ${{ item.total_price }}
+              </td>
+            </tr>
+          {% endwith %}
+        {% endfor %}
+        <tr>
+          <td>Total</td>
+          <td colspan="5"></td>
+          <td>${{ cart.get_total_price }}</td>
+        </tr>
+      </tbody>
+    </table>
+    {% else %}
+      <h3 class="my-5 text-center">Your shopping cart is empty...</h3>
+    {% endif %}
+    <div class="d-flex flex-row justify-content-center">
+      <a class="btn btn-primary" href="{% url 'products:products_list' %}">Continue shopping</a>
+      {% if cart %}
+        <a class='btn btn-success ms-2' href="#">Checkout</a>
+      {% endif %}
+    </div>
+{% endblock %}
