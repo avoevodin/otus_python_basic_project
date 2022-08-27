@@ -144,7 +144,12 @@ if DEBUG and pkgutil.find_loader("debug_toolbar"):
     INTERNAL_IPS = ["127.0.0.1"]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-CACHE_BACKEND = "django.core.cache.backends.memcached.MemcachedCache"
-CACHE_LOCATION = "127.0.0.1:11211"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}
 
 CART_SESSION_ID = "cart"

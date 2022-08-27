@@ -7,9 +7,9 @@
       <img src="{% static 'img/logo.png' %}" alt="{% static 'img/no-image.png' %}" width="40" height="40">
     </a>
     <a href="{% url "cart:cart_detail" %}">
-      <div class="d-flex align-items-center">
+      <div class="d-flex flex-column align-items-center">
         <a href="{% url "cart:cart_detail" %}">
-          {% bs_icon 'cart-fill' color='red' size='1.5rem' %}
+          {% bs_icon 'cart4' color='red' size='2rem' %}
         </a>
         {% with total_items=cart|length %}
             {% if total_items > 0 %}
