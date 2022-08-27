@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django_bootstrap_icons",
     "products.apps.ProductsConfig",
     "cart.apps.CartConfig",
+    "order.apps.OrderConfig",
 ]
 
 MIDDLEWARE = [
