@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block container %}
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
+  <div class="card mb-3">
+    <div class="row">
       <div class="col-md-4">
         <img src="{% if product.image %}
                   {{ product.image.url }}
@@ -31,13 +31,27 @@
               </p>
             {% endif %}
           </div>
-          <h4 class="card-title my-2">${{ product.price }}</h4>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h4 class="card-title">${{ product.price }}</h4>
+            <form class="ms-5" action="{% url "cart:cart_add" product.id %}" method="post">
+                <div class="d-flex align-items-center">
+                  {{ cart_product_form }}
+                  <input type="submit" class="btn btn-success ms-2" value="Add to cart">
+                </div>
+                {% csrf_token %}
+            </form>
+          </div>
           <hr>
           <p class="card-text">{{ product.description }}</p>
-        </div>
-        <div class="d-flex justify-content-end mb-3 me-2">
-          <a class="btn btn-primary" href="{% url "products:products_list" %}" role="button">Back</a>
-          <a class="btn btn-success ms-2">Add to Cart</a>
+          <div class="d-flex flex-column align-items-start mb-3 me-2">
+            <a
+              class="btn btn-primary"
+              href="{% url "products:products_list" %}"
+              role="button"
+            >
+              Continue shopping
+            </a>
+          </div>
         </div>
       </div>
     </div>
