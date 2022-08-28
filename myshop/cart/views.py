@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
@@ -15,6 +16,7 @@ def get_request_cart_data(request, product_pk):
     return cart, product
 
 
+@login_required
 @require_POST
 def cart_add(request, product_pk):
     """
@@ -34,6 +36,7 @@ def cart_add(request, product_pk):
     return redirect("cart:cart_detail")
 
 
+@login_required
 def cart_remove(request, product_pk):
     """
     TODO
@@ -43,6 +46,7 @@ def cart_remove(request, product_pk):
     return redirect("cart:cart_detail")
 
 
+@login_required
 def cart_detail(request):
     """
     TODO
