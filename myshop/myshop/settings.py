@@ -15,6 +15,8 @@ from os import environ as env
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -166,3 +168,12 @@ else:
     EMAIL_HOST = "localhost"
     EMAIL_PORT = 1025
     EMAIL_HOST_USER = None
+
+DEFAULT_FROM_EMAIL = "admin@myshop.com"
+
+AUTH_USER_MODEL = "accounts.MyUser"
+AUTHENTICATION_BACKENDS = ["myauth.backends.EmailBackend"]
+
+LOGIN_URL = reverse_lazy("myauth:login")
+LOGOUT_URL = reverse_lazy("myauth:logout")
+LOGIN_REDIRECT_URL = reverse_lazy("products:products_list")
