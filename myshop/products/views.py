@@ -13,10 +13,19 @@ class ProductListView(LoginRequiredMixin, generic.ListView):
 
     model = Product
     template_name = "product_list.html"
-    ordering = "name"
+    ordering = ("name",)
     context_object_name = "product_list"
 
+    def get_queryset(self):
+        """
+        TODO
+        """
+        return Product.objects.filter(available=True)
+
     def get_context_data(self, **kwargs):
+        """
+        TODO
+        """
         category_slug = self.kwargs.get("category_slug")
         category = None
         context = super(ProductListView, self).get_context_data(**kwargs)

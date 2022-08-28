@@ -14,7 +14,7 @@ class CategoryFactory(DjangoModelFactory):
         django_get_or_create = ("name",)
 
     name = factory.Iterator(["Smartphone", "TV", "Headphone", "Laptop", "Tablet"])
-    slug = slugify(name)
+    slug = factory.LazyAttribute(lambda o: slugify(o.name))
     description = factory.Faker("text", max_nb_chars=512)
 
 
