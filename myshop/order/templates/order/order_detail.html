@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Order detail
+{% endblock %}
+
+{% block container %}
+  <div class="container d-flex flex-column align-items-center mb-3">
+    <h2>Thank you!</h2>
+    <h4 class="text-muted">
+      Your order has been successfully placed. Your order number is
+      <strong>{{ order.pk }}</strong>
+    </h4>
+  </div>
+  <div class="container d-flex">
+    <div class="container d-flex flex-column">
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>First name:</strong>
+            {{ order.first_name }}
+          </li>
+          <li class="list-group-item">
+            <strong>Last name:</strong>
+            {{ order.last_name }}
+          </li>
+          <li class="list-group-item">
+            <strong>Email:</strong>
+            {{ order.email }}
+          </li>
+          <li class="list-group-item">
+            <strong>Address:</strong>
+            {{ order.address }}
+          </li>
+          <li class="list-group-item">
+            <strong>Postal code:</strong>
+            {{ order.postal_code }}
+          </li>
+          <li class="list-group-item">
+            <strong>City:</strong>
+            {{ order.city }}
+          </li>
+          <li class="list-group-item">
+            <strong>Created at:</strong>
+            {{ order.created_at }}
+          </li>
+          {% if order.paid %}
+            <li class="list-group-item list-group-item-success">
+              <span>Order has been paid successfully</span>
+            </li>
+          {% else %}
+            <li class="list-group-item list-group-item-danger">
+              <span>Order hasn't been paid</span>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      <a class="btn btn-primary mt-2 w-50 align-self-center" href="{% url 'products:products_list' %}">Continue shopping</a>
+    </div>
+    <div class="container">
+      <h3>Your order:</h3>
+      <table class="table table-striped table-hover text-center">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit price</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in order_items %}
+            {% with item.product as product %}
+              <tr>
+                <td>
+                  {{ product.name }}
+                </td>
+                <td>
+                  {{ item.quantity }}
+                </td>
+                <td>
+                  ${{ item.price }}
+                </td>
+                <td>
+                  ${{ item.get_cost }}
+                </td>
+              </tr>
+            {% endwith %}
+          {% endfor %}
+          <tr class="table-success">
+            <td>Total</td>
+            <td colspan="2"></td>
+            <td>${{ order.get_total_cost }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

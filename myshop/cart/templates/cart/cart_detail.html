@@ -63,7 +63,7 @@
               </tr>
             {% endwith %}
           {% endfor %}
-          <tr>
+          <tr class="table-success">
             <td>Total</td>
             <td colspan="4"></td>
             <td>${{ cart.get_total_price }}</td>
@@ -76,7 +76,7 @@
     <div class="d-flex flex-row justify-content-center">
       <a class="btn btn-primary" href="{% url 'products:products_list' %}">Continue shopping</a>
       {% if cart %}
-        <a class='btn btn-success ms-2' href="#">Checkout</a>
+        <a class='btn btn-success ms-2' href="{% url 'order:order_create' %}">Checkout</a>
       {% endif %}
     </div>
   </div>
