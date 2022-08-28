@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 import pkgutil
+from os import environ as env
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -154,3 +155,14 @@ CACHES = {
 }
 
 CART_SESSION_ID = "cart"
+
+if env.get("EMAIL_HOST"):
+    EMAIL_BACKEND = env.get("EMAIL_BACKEND")
+    EMAIL_HOST = env.get("EMAIL_HOST")
+    EMAIL_PORT = env.get("EMAIL_PORT")
+    EMAIL_HOST_USER = env.get("EMAIL_HOST_USER")
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = "localhost"
+    EMAIL_PORT = 1025
+    EMAIL_HOST_USER = None

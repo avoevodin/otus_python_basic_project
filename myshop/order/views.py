@@ -1,9 +1,11 @@
-from django.urls import reverse_lazy, reverse
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 from django.views import generic
 
 from cart.cart import Cart
-from .models import Order, OrderItem
+from worker.email.tasks import send_order_placement_mail
 from .forms import OrderModelForm
+from .models import Order, OrderItem
 
 
 class OrderCreateView(generic.CreateView):
@@ -29,7 +31,9 @@ class OrderCreateView(generic.CreateView):
                 quantity=item["quantity"],
                 price=item["price"],
             )
-            cart.clear()
+        cart.clear()
+        host = get_current_site(self.request).domain
+        send_order_placement_mail.delay(host, self.object.pk)
         return super().form_valid(form)
 
     def get_success_url(self):
