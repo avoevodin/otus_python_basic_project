@@ -2,7 +2,7 @@
 {% load bootstrap_icons %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top mb-2">
-  <div class="container-fluid">
+  <div class="container">
     <a class="navbar-brand" href="/">
       <img src="{% static 'img/logo.png' %}" alt="{% static 'img/no-image.png' %}" width="40" height="40">
     </a>
@@ -12,10 +12,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item me-3">
+        <li class="nav-item me-auto">
           <a href="{% url "cart:cart_detail" %}">
             <div class="d-flex flex-column align-items-center">
-              <a href="{% url "cart:cart_detail" %}">
+              <a class="" href="{% url "cart:cart_detail" %}">
                 {% bs_icon 'cart4' color='red' size='2rem' %}
               </a>
               {% with total_items=cart|length %}
