@@ -1,11 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views import generic
 
-from .models import Product, Category
 from cart.forms import CartAddProductForm
+from .models import Product, Category
 
 
-class ProductListView(generic.ListView):
+class ProductListView(LoginRequiredMixin, generic.ListView):
     """
     TODO
     """
@@ -32,7 +33,7 @@ class ProductListView(generic.ListView):
         return context
 
 
-class ProductDetailView(generic.DetailView):
+class ProductDetailView(LoginRequiredMixin, generic.DetailView):
     """
     TODO
     """

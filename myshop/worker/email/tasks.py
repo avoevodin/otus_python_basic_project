@@ -38,9 +38,9 @@ def send_verification_mail(host, user_email, key, confirm):
     confirm user's registration process.
 
     """
-    send_mail(
-        _("Activate your account."),
-        _(f"Hello!\nYour confirmation link for MyShop account is\n") + f"http://{host}"
+    return send_mail(
+        "Activate your account.",
+        f"Hello!\nYour confirmation link for MyShop account is\n" + f"http://{host}"
         f'{reverse("myauth:registration_activate", args=(key, confirm))}',
         settings.DEFAULT_FROM_EMAIL,
         [user_email],
@@ -55,13 +55,11 @@ def send_onboarding_mail(host, user_email):
     successfully.
 
     """
-    send_mail(
-        _("Welcome!"),
-        _(
-            f"Myshop team welcomes you on board and we wish you a productive shopping.\n"
-            f"Visit our shop right now:\n"
-        )
-        + f"http://{host}"
+    return send_mail(
+        "Welcome!",
+        f"Myshop team welcomes you on board and we wish you a productive shopping.\n"
+        f"Visit our shop right now:\n"
+        f"http://{host}"
         f'{reverse("myauth:registration_activation_done")}',
         settings.DEFAULT_FROM_EMAIL,
         [user_email],

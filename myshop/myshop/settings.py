@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "products.apps.ProductsConfig",
     "cart.apps.CartConfig",
     "order.apps.OrderConfig",
+    "myauth.apps.MyauthConfig",
 ]
 
 MIDDLEWARE = [
@@ -94,18 +95,18 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    # },
 ]
 
 
@@ -171,7 +172,9 @@ else:
 
 DEFAULT_FROM_EMAIL = "admin@myshop.com"
 
-AUTH_USER_MODEL = "accounts.MyUser"
+EXPIRE_LINK = 86400 * 3
+
+AUTH_USER_MODEL = "myauth.MyUser"
 AUTHENTICATION_BACKENDS = ["myauth.backends.EmailBackend"]
 
 LOGIN_URL = reverse_lazy("myauth:login")

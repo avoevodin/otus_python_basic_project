@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.views import generic
@@ -8,7 +9,7 @@ from .forms import OrderModelForm
 from .models import Order, OrderItem
 
 
-class OrderCreateView(generic.CreateView):
+class OrderCreateView(LoginRequiredMixin, generic.CreateView):
     """
     TODO
     """
@@ -43,7 +44,7 @@ class OrderCreateView(generic.CreateView):
         return reverse("order:order_detail", kwargs={"pk": self.object.pk})
 
 
-class OrderDetailView(generic.DetailView):
+class OrderDetailView(LoginRequiredMixin, generic.DetailView):
     """
     TODO
     """

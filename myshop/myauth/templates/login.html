@@ -7,14 +7,11 @@
         <div class="card-body">
             <figure class="text-center">
                 <h3>
-                    {% translate "Login to a Brigadier account" %}
+                  {% translate "Login to a MyShop account" %}
                 </h3>
                 <p class="text-secondary">
-                    {% translate "Don't have an account?" %}
-                    <a href="{% url "myauth:registration" %}">{% translate "Sing up" %}</a>.
-                    <br>
-                    {% translate "Go to the " %}
-                    <a href="{% url "home:home" %}">{% translate "Home page" context "Homepage_genitive_case"%}</a>.
+                  {% translate "Don't have an account?" %}
+                  <a href="{% url "myauth:registration" %}">{% translate "Sing up" %}</a>.
                 </p>
             </figure>
             <form method="post" action="{% url "myauth:login" %}">
