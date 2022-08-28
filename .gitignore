@@ -143,3 +143,4 @@ static/
 
 .DS_Store
 media/
+cov-report/
