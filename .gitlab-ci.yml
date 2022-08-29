@@ -22,10 +22,10 @@ cache:
     - .cache/pip
 
 stages:
-  - linting
-  - testing
-  - building
-#  - deploy
+  - lint
+  - test
+  - build
+  - deploy
 
 before_script:
   - python --version  # For debugging
@@ -33,7 +33,7 @@ before_script:
   - pip install -r requirements/requirements-gl-ci.txt
 
 lint:
-  stage: linting
+  stage: lint
   image:
     name: registry.gitlab.com/pipeline-components/black:latest
     pull_policy: always
@@ -41,7 +41,7 @@ lint:
     - black --check --verbose -- .
 
 test:
-  stage: testing
+  stage: test
   services:
     - postgres:14-alpine
   variables:
@@ -50,21 +50,37 @@ test:
     POSTGRES_PASSWORD: secret
     POSTGRES_HOST: postgres
     POSTGRES_PORT: 5432
+    COVERAGE_DIR: coverage-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   needs:
     - lint
   script:
     - cd myshop
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage xml -o coverage.xml
+    - coverage html -d ./$COVERAGE_DIR
+  artifacts:
+    name: "coverage-report-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - myshop/$COVERAGE_DIR
+    when: on_success
+    expire_in: 1 week
 
 test-echo:
-  stage: testing
+  stage: test
   needs:
     - test
   script:
     - echo 'Tests have been completed'
 
 build:
-  stage: building
+  stage: build
   script:
     - echo 'Build app'
+
+deploy-remote:
+  stage: deploy
+  script:
+    - echo "Deploy to remote..."
+    - curl -X POST https://httpbin.org/post -d 'ci=$APP_ENV_CONFIG' -d "commit-sha=$CI_COMMIT_SHA"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
