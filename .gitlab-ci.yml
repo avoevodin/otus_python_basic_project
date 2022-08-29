@@ -48,6 +48,8 @@ test:
     POSTGRES_DB: 'myshop'
     POSTGRES_USER: 'myshop'
     POSTGRES_PASSWORD: 'secret'
+    POSTGRES_HOST: '127.0.0.1'
+    POSTGRES_PORT: '5432'
   needs:
     - lint
   script:
