@@ -61,7 +61,6 @@ test:
     - echo $(ls)
     - echo $CI_PROJECT_DIR
     - echo $CI_BUILDS_DIR
-    -
   artifacts:
     name: "coverage-report-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     paths:
