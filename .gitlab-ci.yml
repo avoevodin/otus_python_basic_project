@@ -22,9 +22,9 @@ cache:
     - .cache/pip
 
 stages:
-#  - build
   - linting
   - testing
+  - building
 #  - deploy
 
 before_script:
@@ -56,3 +56,8 @@ test:
     - cd myshop
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage xml -o coverage.xml
+
+build:
+  stage: building
+  script:
+    - echo 'Build app'
