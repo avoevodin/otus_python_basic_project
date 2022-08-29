@@ -34,7 +34,7 @@ before_script:
 
 lint:
   stage: linting
-  image: registry.gitlab.com/pipeline-components/black:stable
+  image: psf/black@stable
   script:
     - black --check --verbose -- .
 
