@@ -15,10 +15,13 @@
         <li class="nav-item me-auto">
           <a href="{% url "cart:cart_detail" %}">
             <div class="d-flex flex-column align-items-center">
-              <a class="" href="{% url "cart:cart_detail" %}">
+              {% with total_items=cart|length %}
+              <a
+                class="{% if total_items == 0 %} mt-1 {% endif %}"
+                href="{% url "cart:cart_detail" %}"
+              >
                 {% bs_icon 'cart4' color='red' size='2rem' %}
               </a>
-              {% with total_items=cart|length %}
                   {% if total_items > 0 %}
                     <small class="text-muted">
                       ({{ total_items }} item{{ total_items|pluralize }},
