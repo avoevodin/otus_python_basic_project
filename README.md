@@ -1,4 +1,9 @@
-# Some bank app
+# MyShop
+[![Python application](https://github.com/avoevodin/otus_python_basic_project/actions/workflows/black.yml/badge.svg)](https://github.com/avoevodin/otus_python_basic_project/actions/workflows/black.yml)
+[![Python application](https://github.com/avoevodin/otus_python_basic_project/actions/workflows/python-app.yml/badge.svg)](https://github.com/avoevodin/otus_python_basic_project/actions/workflows/python-app.yml)
+[![codecov](https://codecov.io/gh/avoevodin/otus_python_basic_project/branch/master/graph/badge.svg?token=FzzJX0nCoA)](https://codecov.io/gh/avoevodin/otus_python_basic_project)
+
+### Some ecommerce app
 #### Django project for Otus Python Basic course
 
 ## Install
