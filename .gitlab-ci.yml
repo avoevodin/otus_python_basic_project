@@ -50,18 +50,17 @@ test:
     POSTGRES_PASSWORD: secret
     POSTGRES_HOST: postgres
     POSTGRES_PORT: 5432
-    COVERAGE_DIR: "coverage-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
+    COVERAGE_DIR: coverage-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
   needs:
     - lint
   script:
     - cd myshop
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage html -d ./$COVERAGE_DIR
-    - echo $(ls)
   artifacts:
     name: "coverage-report-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
-      - ./$COVERAGE_DIR
+      - $COVERAGE_DIR
     when: on_success
     expire_in: 1 week
 
