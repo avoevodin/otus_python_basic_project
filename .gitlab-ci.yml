@@ -57,6 +57,13 @@ test:
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage xml -o coverage.xml
 
+test-echo:
+  stage: testing
+  needs:
+    - test
+  script:
+    - echo 'Tests have been completed'
+
 build:
   stage: building
   script:
