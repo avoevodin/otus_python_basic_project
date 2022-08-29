@@ -58,7 +58,7 @@ test:
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage xml -o coverage.xml
     - coverage html -d ./$COVERAGE_DIR
-    - echo ${ls}
+    - echo $(ls)
   artifacts:
     name: "coverage-report-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     paths:
