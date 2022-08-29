@@ -45,11 +45,11 @@ test:
   services:
     - postgres:14-alpine
   variables:
-    POSTGRES_DB: 'myshop'
-    POSTGRES_USER: 'myshop'
-    POSTGRES_PASSWORD: 'secret'
-    POSTGRES_HOST: 'postgres'
-    POSTGRES_PORT: '5432'
+    POSTGRES_DB: myshop
+    POSTGRES_USER: myshop
+    POSTGRES_PASSWORD: secret
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
   needs:
     - lint
   script:
