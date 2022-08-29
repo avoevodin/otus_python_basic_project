@@ -42,6 +42,12 @@ lint:
 
 test:
   stage: testing
+  services:
+    - postgres:14-alpine
+  variables:
+    POSTGRES_DB: 'myshop'
+    POSTGRES_USER: 'myshop'
+    POSTGRES_PASSWORD: 'secret'
   needs:
     - lint
   script:
