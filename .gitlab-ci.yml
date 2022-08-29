@@ -36,7 +36,7 @@ lint:
   stage: linting
   image:
     name: registry.gitlab.com/pipeline-components/black:stable
-    pull_policy: if-not-present
+    pull_policy: always
   script:
     - black --check --verbose -- .
 
