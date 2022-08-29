@@ -57,6 +57,7 @@ test:
     - cd myshop
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage xml -o coverage.xml
+    - coverage html -d cov-report
   artifacts:
     name: "coverage-report-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
