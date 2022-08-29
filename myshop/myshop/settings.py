@@ -24,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-dvm4hf&n%-v87ll3z&#og4pr)5c0z7a4py2*h0-_*v=dtng@t2"
+SECRET_KEY = env.get("MYSHOP_SECRET_KEY", "myshop_test_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.get("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*",
+]
 
 
 # Application definition
@@ -83,12 +85,24 @@ WSGI_APPLICATION = "myshop.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if env.get("POSTGRES_HOST"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": env.get("POSTGRES_HOST"),
+            "PORT": env.get("POSTGRES_PORT"),
+            "NAME": env.get("POSTGRES_DB"),
+            "USER": env.get("POSTGRES_USER"),
+            "PASSWORD": env.get("POSTGRES_PASSWORD"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
@@ -150,12 +164,13 @@ if DEBUG and pkgutil.find_loader("debug_toolbar"):
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "LOCATION": "127.0.0.1:11211",
+if env.get("CACHE_BACKEND"):
+    CACHES = {
+        "default": {
+            "BACKEND": env.get("CACHE_BACKEND"),
+            "LOCATION": env.get("CACHE_LOCATION"),
+        }
     }
-}
 
 CART_SESSION_ID = "cart"
 
