@@ -58,13 +58,11 @@ test:
     - coverage run --source='.' manage.py test --verbosity=2
     - coverage xml -o coverage.xml
     - coverage html -d ./$COVERAGE_DIR
-    - echo $(ls)
-    - echo $CI_PROJECT_DIR
-    - echo $CI_BUILDS_DIR
+    - echo $CI_PROJECT_NAME
   artifacts:
     name: "coverage-report-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     paths:
-      - $CI_PROJECT_DIR/$COVERAGE_DIR
+      - myshop/$COVERAGE_DIR
     when: on_success
     expire_in: 1 week
 
